@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Container, Button } from 'react-bootstrap';
 
 const Home = (props) => {
-    const promptList = ["Who would win?","Best Actor??"];
+    const [promptList,changePromptList]= useState([]);
+    useEffect(()=>{
+        const getPrompts=async()=>{
+            changePromptList(await window.contract.getAllPrompt());
+            console.log(await window.contract.getAllPrompt());
+        };
+        getPrompts();
+    },[]);
     return (
         <Container>
             <Table style={{margin: "5vh"}} striped bordered hover>
@@ -19,7 +26,7 @@ const Home = (props) => {
                             return(<tr key={index}>
                                 <td>{index+1}</td>
                                 <td>{el}</td>
-                                <td><Button>Go to Poll</Button></td>
+                                <td><Button onClick={()=>props.changeCandidates(el)}>Go to Poll</Button></td>
                             </tr>);
                         })
                     }

@@ -37,6 +37,16 @@ export function getAllPrompt(): string[]{
   }
 }
 
+export function getCandidatePair(prompt:string):string[]{
+  if(CandidatePair.contains(prompt)){
+    return CandidatePair.getSome(prompt);
+  }
+  else{
+    logging.log('prompt not found');
+    return [];
+  }
+}
+
 export function getVotes(prompt: string): i32[]{
   if(voteArray.contains(prompt)) {
     return voteArray.getSome(prompt);
@@ -86,9 +96,9 @@ export function addToPromptArray(prompt: string): void{
   if(PromptArray.contains("AllArrays")) {
     let tempArray = PromptArray.getSome("AllArrays");
     tempArray.push(prompt);
-    PromptArray.set("AllArray", tempArray);
+    PromptArray.set("AllArrays", tempArray);
   } else {
-    PromptArray.set("AllArray", [prompt]);
+    PromptArray.set("AllArrays", [prompt]);
   }
 
 }
